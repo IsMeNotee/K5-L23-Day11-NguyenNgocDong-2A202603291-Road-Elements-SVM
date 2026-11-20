@@ -7,7 +7,7 @@
 ## Nguồn dữ liệu và phạm vi
 
 - Gói dữ liệu được cung cấp có 28 ảnh: A01–A16 và B01–B12. Ảnh không nằm trong các tệp nhãn bên dưới.
-- Bản front gốc của học viên được giữ riêng nguyên byte. Bản front đã rà soát trong gói hiện tại gồm 16 ảnh A và có các sửa đổi: đảo chiều hai lane A06/A08; A13 đổi vị trí lane trắng từ L1 sang R1 và thêm L1 vàng; A16 thêm hai lane L1/R1. Các điểm mới cần kiểm lại trên CVAT vì chưa so với GT. Một phần nhãn trong quá trình làm đã có sự hỗ trợ của trợ lý; cần kiểm tra và chịu trách nhiệm về toàn bộ nội dung trước khi nộp.
+- Front trong báo cáo là bản export mới `front (1).zip` của học viên, giữ nguyên byte; không gộp các sửa đổi trong bản trước của trợ lý. Một phần nhãn trong quá trình làm đã có sự hỗ trợ của trợ lý. Chi tiết kiểm tra nằm trong [phiếu tự kiểm](QC-tu-kiem.md).
 - Phần fisheye B01–B12 được trích từ tệp XML do một bạn cung cấp, không phải kết quả tự gán nhãn của học viên. Tệp XML mới được dựng từ các đối tượng B, không mang metadata cá nhân của project nguồn. Nguồn dữ liệu cần được công khai phù hợp với quy định của lớp.
 - Với bộ B, đã sửa bốn giá trị tag camera theo hậu tố tên ảnh, bốn giá trị position của lane camera bên thành `other`, và ba giá trị `edge_zone` theo phép kiểm bán kính trong guideline. Tọa độ, số lượng và loại hình của các đối tượng B được giữ nguyên. Việc này không thay thế kiểm tra ảnh trực quan.
 
@@ -26,8 +26,8 @@ Thống kê là số đối tượng có trong file, không khẳng định đ�
 
 | Tập | Ảnh | lane | road_curb | crosswalk | drivable | traffic_light | traffic_sign |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Front A01–A12 | 12 | 28 | 3 | 3 | 26 | 39 | 44 |
-| Front thêm A13–A16 | 4 | 8 | 2 | 4 | 8 | 13 | 23 |
+| Front A01–A12 | 12 | 30 | 3 | 3 | 26 | 39 | 44 |
+| Front thêm A13–A16 | 4 | 6 | 1 | 4 | 8 | 13 | 23 |
 | Fisheye B01–B08 | 8 | 8 | 11 | 8 | 8 | 2 | 1 |
 | Fisheye thêm B09–B12 | 4 | 0 | 2 | 5 | 4 | 0 | 0 |
 
@@ -37,10 +37,11 @@ Việc có nhãn trên ảnh thêm không chứng minh ảnh đó đạt tiêu c
 
 | Ảnh | Nội dung | Tình trạng |
 | --- | --- | --- |
-| A05, A06, A07 | Lint báo thiếu L1 hoặc R1 | Xem ảnh: chỉ bổ sung vạch nếu thực sự nhìn thấy; nếu không, ghi nhận và xin coach xác nhận. |
-| A13, A16 | Vạch đã được bổ sung | Cần xem lại độ sát tâm vạch và thuộc tính; chưa có GT để chứng minh sai lệch ≤ 5 px. |
-| A14 | Lint báo thiếu R1 | Không thấy rõ sơn phân làn bên phải; chờ coach xác nhận trước khi thêm. |
-| A06, A08 | Chiều polyline | Đã đảo thứ tự các điểm của L1 để vẽ gần → xa; không đổi tọa độ. |
+| A05 | Lint báo thiếu L1/R1 | Ảnh không có vạch phân làn nhìn thấy: không tự vẽ thêm; ghi ngoại lệ và nhờ coach xác nhận. |
+| A13 | Lint báo thiếu R1 | Lane trắng hiện ghi L1 nhưng có vẻ nằm bên phải xe; kiểm lại thuộc tính và vạch vàng bên trái. |
+| A16 | Lint báo thiếu L1/R1 | Ảnh có đoạn sơn trắng; đối chiếu và gán đúng vạch làn. |
+| A06, A08 | Chiều polyline L1 | Lint báo điểm đầu cao hơn điểm cuối; kiểm chiều gần → xa. |
+| A06, A07, A14 | L1/R1 đã có | Hình học cần kiểm lại sát ảnh, đặc biệt các đường gần lề/vùng tối; hết cảnh báo lint không chứng minh đúng. |
 | B02, B04 | Hai đèn và một biển ở vùng biên | `edge_zone` đã sửa theo phép tính bán kính; cần kiểm thực tế theo mép ảnh fisheye. |
 | B05, B08, B10, B12 | Biên polygon gần thân xe/vùng tối | Kiểm lại chi tiết để tránh gán vào thân xe hoặc vùng ngoài ảnh hợp lệ. |
 | B05, B06, B09, B11 | Một số nhóm nhãn theo kế hoạch chưa thấy trong file | Kiểm ảnh và bảng kế hoạch: B05 chưa có road_curb; B06 chưa có drivable/lane; B09 chưa có lane/đèn/biển; B11 chưa có lane. Không suy ra thiếu nếu ảnh thực sự không thấy, cần coach xác nhận. |
@@ -53,10 +54,10 @@ Chưa có phiếu QC 1 nhận được, chưa có tên người kiểm và quy�
 
 | File | Đọc lại XML | Số ảnh / đủ 4 tag | SHA-256 |
 | --- | --- | --- | --- |
-| `NguyenNgocDong-front.zip` | ZIP/XML đọc được; bản đã rà soát | 16 / 16 | `6929b3573c820b52320d344e3f9096baeef07a8f5d8aa36416f010781eba43e9` |
+| `NguyenNgocDong-front.zip` | ZIP/XML đọc được; bản export mới nguyên byte | 16 / 16 | `1148f20b9733d6ad78e2502e2adcd674426d50db41c56ce3ffc6796a2abd1045` |
 | `NguyenNgocDong-fisheye.zip` | ZIP/XML đọc được; chưa thử import CVAT | 12 / 12 | `51512a83ac8451473ee11b3c24532c982492d4ec855353ca6a7ebe30f990acc6` |
 
-`road_check selftest`: **PASS** trên dữ liệu tổng hợp. `road_check lint`: 28 ảnh, **5 cảnh báo nặng, 0 chính, 11 nhẹ**. Các cảnh báo nặng còn lại đều là QC1-02: A05 thiếu L1/R1, A06 thiếu R1, A07 thiếu L1 và A14 thiếu R1. Không tự thêm vạch khi không thấy rõ; cần coach xác nhận. Lint kiểm định dạng và một số quy tắc; không có GT nên không đo độ lệch 5 px, không đánh giá đầy đủ và không chứng minh đạt rubric. Chưa đối chiếu số shape trên hai ảnh giữa job CVAT và export.
+`road_check selftest`: **PASS** trên dữ liệu tổng hợp. `road_check lint`: 28 ảnh, **5 cảnh báo nặng, 2 chính, 11 nhẹ**. Hai cảnh báo A05 là trường hợp không thấy vạch và cần coach xác nhận ngoại lệ; ba cảnh báo còn lại ở A13 và A16 cần xem lại. Hai cảnh báo chính về chiều polyline ở A06/A08. Lint không có GT nên không đo được độ lệch 5 px hoặc chứng minh đạt rubric. Chưa đối chiếu số shape trên hai ảnh giữa job CVAT và export.
 
 ## 6. Bằng chứng ảnh
 
