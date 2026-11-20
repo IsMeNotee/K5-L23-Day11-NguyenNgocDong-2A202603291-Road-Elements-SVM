@@ -1,19 +1,59 @@
 # Báo cáo Ngày 11 — Road Elements & SVM
 
-Họ tên: Nguyễn Ngọc Đông · Mã học viên: 2A202603291  
-Guideline: Road v1.0
+**Họ tên:** Nguyễn Ngọc Đông · **Mã học viên:** 2A202603291  
+**Guideline:** Road v1.0 · **Manifest:** revision 1
 
-## Bàn giao
+## 1. Project và nguồn nhãn
 
-`NguyenNgocDong-front.zip` được tạo từ `lastttt.zip` do học viên cung cấp. Bản công khai được xóa địa chỉ email trong metadata; các nhãn và tọa độ được giữ nguyên. Theo yêu cầu, bản này **chưa chạy lại lint hoặc kiểm tra nội dung**, nên chưa thể kết luận chất lượng hay xác nhận hết cảnh báo.
+Task front [#2781436](https://app.cvat.ai/tasks/2781436), job #4751015 có 16 ảnh và đã được đặt trạng thái `completed` trên CVAT. Trạng thái của task fisheye chưa có bằng chứng để xác nhận. Kiểm project front trên CVAT có sáu label hình học và bốn label tag; việc đối chiếu tất cả thuộc tính với guideline cần được hoàn tất.
 
-`NguyenNgocDong-fisheye.zip` giữ nguyên bản đã chuẩn bị từ XML do một bạn cung cấp. Các thuộc tính camera, vị trí làn camera bên và một số cờ vùng biên đã được sửa trong phiên trước; tọa độ của bộ fisheye giữ nguyên. Bộ này chưa được xác nhận import lại vào CVAT.
+Front lấy từ `lastttt.zip` của học viên; bản công khai đã xóa email trong metadata, giữ nguyên nội dung nhãn và tọa độ. Một phần thao tác được trợ lý hỗ trợ. B01–B12 được trích từ tệp XML do một bạn cung cấp, không phải nhãn tự gán; đã sửa bốn camera theo tên ảnh, bốn `position` của camera bên thành `other`, và ba `edge_zone` theo phép tính của checker. Tọa độ bộ B không thay đổi. Bản B được dựng lại và chưa được xác nhận nhập lại vào CVAT.
 
-Manifest ghi kích thước và SHA-256 của hai tệp công khai; trường lint để trống do không chạy lại. Thống kê được ghi trước đó đối với bộ fisheye không thay thế kiểm tra chất lượng.
+## 2. Số lượng trong file
 
-## Ghi chú QC
+| Tập | Ảnh | lane | road_curb | crosswalk | drivable | traffic_light | traffic_sign |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Front A01–A12 | 12 | 30 | 3 | 3 | 26 | 39 | 44 |
+| Front thêm A13–A16 | 4 | 9 | 1 | 4 | 8 | 13 | 23 |
+| Fisheye B01–B08 | 8 | 8 | 11 | 8 | 8 | 2 | 1 |
+| Fisheye thêm B09–B12 | 4 | 0 | 2 | 5 | 4 | 0 | 0 |
 
-Ảnh A05 không thấy vạch phân làn: lint ở bản trước từng báo thiếu L1/R1, không nên tự vẽ thêm để làm mất cảnh báo. Theo đặc tả bàn giao, cần coach xác nhận ngoại lệ. [Phiếu tự kiểm trước đó](QC-tu-kiem.md) ghi các nhận xét cho bản export trước, không được coi là kết quả kiểm tra của `lastttt.zip`.
+Số lượng trong file không chứng minh nhãn đúng hoặc ảnh thưởng đạt yêu cầu.
 
-Chưa có bằng chứng phiếu QC 1 độc lập, xác nhận coach, đối chiếu GT hoặc đủ ảnh chụp theo mẫu. Điểm thưởng chưa được xác minh.
+## 3. Trường hợp cần lưu ý
+
+| Ảnh | Nhận định | Xử lý |
+| --- | --- | --- |
+| A05 | Người nộp xác nhận không thấy vạch L1/R1; lint vẫn báo hai cảnh báo QC1-02. | Không tự vẽ thêm; ghi ngoại lệ trong [phiếu tự kiểm](QC-tu-kiem.md). Chưa có bằng chứng riêng về xác nhận của coach. |
+| B05/B06 | Người nộp xác nhận không có L1/R1. Đây là camera bên; nếu có lane thì dùng `position=other`. | Không tự tạo L1/R1. So riêng các nhóm nhãn khác với ảnh và kế hoạch. |
+| B05 | File có crosswalk, chưa có road_curb dù kế hoạch nêu nhóm này. | Kiểm ảnh để quyết định có thiếu nhãn không. |
+| B06 | File có crosswalk, chưa có drivable hoặc lane dù kế hoạch nêu các nhóm đó. | Kiểm ảnh; không suy ra thiếu vạch chỉ từ lint. |
+| B09/B11 | Các nhóm lane/đèn/biển theo trọng tâm ảnh thưởng chưa thấy trong file. | Kiểm trực quan và xác nhận trước khi tính thưởng. |
+
+## 4. Phiếu QC 1
+
+Người được phân công để học viên đánh giá: **Trần Đức Kỳ — 2A202603277**. Chưa xác minh được tệp export thuộc lô của bạn Kỳ và chưa lập phiếu QC 1 độc lập; không suy kết quả từ lint hoặc tự điền quyết định.
+
+Theo học viên, người kiểm bài của học viên là **Nguyễn Văn Nhất**; chưa có mã học viên hoặc nội dung phiếu/nhận xét và chưa xác minh quyết định Release/Hold/Rework. Không ghi đã sửa theo phiếu khi chưa có bằng chứng.
+
+## 5. Kiểm file và manifest
+
+| Tệp | Kích thước | SHA-256 | Số ảnh / đủ bốn tag |
+| --- | ---: | --- | --- |
+| `NguyenNgocDong-front.zip` | 76592 | `c61088e2ed418eb02268048944f91e5f9e6162ac58dee4b6d223ce88e671fd55` | 16 / 16 |
+| `NguyenNgocDong-fisheye.zip` | 7301 | `51512a83ac8451473ee11b3c24532c982492d4ec855353ca6a7ebe30f990acc6` | 12 / 12 |
+
+Hai zip chỉ chứa XML, không kèm ảnh; công cụ đọc được cả hai. `road_check selftest` trước đó PASS trên dữ liệu tổng hợp. Lint của bộ hiện tại: **2 cảnh báo nặng, 0 chính, 11 nhẹ**. Hai cảnh báo nặng đều là A05 thiếu L1/R1, cần xử lý theo ngoại lệ nêu trên. Lint không so GT, không đo độ lệch ≤ 5 px và không chứng minh đã đạt. Chưa đối chiếu số shape của hai ảnh giữa CVAT và file.
+
+## 6. Ảnh chụp minh chứng
+
+Cần đủ ảnh tab Labels, ảnh front hoàn chỉnh, ảnh fisheye phóng to polyline cong và đoạn XML. Đã quan sát trạng thái front completed, nhưng chưa có đủ bộ bằng chứng theo mẫu.
+
+## 7. Tự đánh giá
+
+Chưa có kết quả phiếu QC nhận được nên chưa xác định lỗi mắc nhiều nhất hay xác nhận đã sửa theo phiếu. Một vạch sai tâm có thể tạo nhãn huấn luyện sai và làm mô hình học vị trí làn sai; tác động định lượng phải được đánh giá riêng.
+
+## 8. Row-anchor (tùy chọn)
+
+Chưa thực hiện; không có số liệu so sánh.
 
