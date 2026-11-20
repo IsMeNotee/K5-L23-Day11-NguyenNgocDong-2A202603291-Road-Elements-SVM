@@ -32,7 +32,7 @@ Số lượng trong file không chứng minh nhãn đúng hoặc ảnh thưởng
 
 ## 4. Phiếu QC 1
 
-Người được phân công để học viên đánh giá: **Trần Đức Kỳ — 2A202603277**. Chưa xác minh được tệp export thuộc lô của bạn Kỳ và chưa lập phiếu QC 1 độc lập; không suy kết quả từ lint hoặc tự điền quyết định.
+Người được phân công để học viên đánh giá: **Trần Đức Kỳ — 2A202603277**. Học viên xác nhận file XML đã cung cấp là lô của bạn Kỳ; metadata project hiển thị tên khác nên cần đối chiếu với người giao lô. Đã lập [phiếu QC 1 bản tự kiểm có hỗ trợ](NguyenNgocDong-qc1-for-TranDucKy.md) cho 6 ảnh: đề xuất Rework vì có ít nhất 5 lỗi nặng xác định. Một số mã chưa kiểm đầy đủ, chưa tính tỉ lệ lỗi chính; cần hoàn tất và xác nhận phiếu trước khi nộp.
 
 Theo học viên, người kiểm bài của học viên là **Nguyễn Văn Nhất**; chưa có mã học viên hoặc nội dung phiếu/nhận xét và chưa xác minh quyết định Release/Hold/Rework. Không ghi đã sửa theo phiếu khi chưa có bằng chứng.
 
