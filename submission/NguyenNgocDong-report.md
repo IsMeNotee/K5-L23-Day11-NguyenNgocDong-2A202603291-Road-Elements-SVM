@@ -45,9 +45,16 @@ Theo học viên, người kiểm bài của học viên là **Nguyễn Văn Nh�
 
 Hai zip chỉ chứa XML, không kèm ảnh; công cụ đọc được cả hai. `road_check selftest` trước đó PASS trên dữ liệu tổng hợp. Lint của bộ hiện tại: **2 cảnh báo nặng, 0 chính, 11 nhẹ**. Hai cảnh báo nặng đều là A05 thiếu L1/R1, cần xử lý theo ngoại lệ nêu trên. Lint không so GT, không đo độ lệch ≤ 5 px và không chứng minh đã đạt. Chưa đối chiếu số shape của hai ảnh giữa CVAT và file.
 
-## 6. Ảnh chụp minh chứng
+## 6. Bằng chứng ảnh
 
-Cần đủ ảnh tab Labels, ảnh front hoàn chỉnh, ảnh fisheye phóng to polyline cong và đoạn XML. Đã quan sát trạng thái front completed, nhưng chưa có đủ bộ bằng chứng theo mẫu.
+Bốn ảnh dưới đây được lưu trong thư mục `evidence/`:
+
+1. [Task front trên CVAT: label và trạng thái completed](../evidence/01-front-cvat-task-completed.jpg).
+2. [Front A01: chồng nhãn dựng trực tiếp từ XML export](../evidence/02-front-export-annotations.jpg).
+3. [Fisheye B01/B03/B07/B10: polyline cong và các shape chồng từ XML export](../evidence/03-fisheye-export-overlays.jpg).
+4. [Đoạn XML B03: hình và thuộc tính lane/drivable](../evidence/04-fisheye-xml-excerpt.jpg).
+
+Ảnh 1 là ảnh chụp CVAT. Ba ảnh còn lại là ảnh dựng lại trực tiếp từ ZIP/XML và ảnh nguồn để làm bằng chứng export; chúng **không** thay thế việc nhập lại fisheye vào CVAT.
 
 ## 7. Tự đánh giá
 
@@ -56,4 +63,3 @@ Chưa có kết quả phiếu QC nhận được nên chưa xác định lỗi m
 ## 8. Row-anchor (tùy chọn)
 
 Chưa thực hiện; không có số liệu so sánh.
-
