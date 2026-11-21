@@ -1,6 +1,6 @@
 # Báo cáo Ngày 11 — Road Elements & SVM
 
-**Họ tên:** Nguyễn Ngọc Đông · **Mã học viên:** 2A202603291  
+**Họ tên:** Nguyễn Ngọc Đồng · **Mã học viên:** 2A202603291  
 **Guideline:** Road v1.0 · **Manifest:** revision 1
 
 ## 1. Project và nguồn nhãn
