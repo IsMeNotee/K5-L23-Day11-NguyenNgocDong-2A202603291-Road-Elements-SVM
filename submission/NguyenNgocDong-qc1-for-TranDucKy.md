@@ -1,7 +1,7 @@
 # Phiếu QC 1 — Road v1.0 (bản tự kiểm có hỗ trợ)
 
 **Lô được phân công kiểm:** Trần Đức Kỳ — 2A202603277  
-**Người kiểm:** Nguyễn Ngọc Đông — 2A202603291  
+**Người kiểm:** Nguyễn Ngọc Đồng — 2A202603291  
 **Ngày:** 21/11/2026 · **Guideline:** Road v1.0  
 **File đã kiểm:** `annotations.xml`, SHA-256 `33b99f77f919e074c4dfd361dd5f900e9986ffd4828ece44a12f9076e0c21ff0`; revision chưa có manifest để xác nhận. Học viên xác nhận đây là lô của Trần Đức Kỳ; metadata project trong file hiển thị tên khác, cần đối chiếu lại với người giao lô trước khi phát hành phiếu chính thức.
 
